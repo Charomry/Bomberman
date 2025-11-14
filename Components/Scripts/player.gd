@@ -25,3 +25,42 @@ func _physics_process(delta: float) -> void:
 			velocity.y += gravity * delta
 	else:
 		current_air_jumps = air_jumps
+		coyote_timer = COYOTE_TIME_THRESHOLD
+	
+	# Update Timers
+	if coyote_timer > 0:
+		coyote_timer -= delta
+	if jump_buffer_timer > 0:
+		jump_buffer_timer -= delta
+	
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer_timer = JUMP_BUFFER_TIME_THRESHOLD
+	
+	if jump_buffer_timer > 0:
+		if is_on_floor() or coyote_timer > 0: # Normal jump or coyote time jump
+			velocity.y = JUMP_VELOCITY
+			jump_buffer_timer = 0 # Consume buffer
+			coyote_timer = 0 
+		elif current_air_jumps > 0:
+			velocity.y = JUMP_VELOCITY * 0.8
+			current_air_jumps -= 1
+			jump_buffer_timer = 0
+	
+	
+		# Handle Horizontal Input
+	var direction = Input.get_axis("move_left", "move_right") # "move_left" & "move_right"
+	
+	
+# 	Movement Simple
+	if direction:
+		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * 2.0 * delta) # Accelerate
+		# Flip the Spritre
+		if $Sprite2D:
+			$Sprite2D.flip_h = (direction < 0)
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED * 2.0 * delta) # Decelerate
+		
+		move_and_slide()
+		
+		# Update Animations
+		
