@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmi4vm45yt6q7"]
+
+[ext_resource type="Script" uid="uid://c0g37hsbouip3" path="res://Components/Scripts/player.gd" id="1_wt6mb"]
+
+[sub_resource type="Gradient" id="Gradient_ekflt"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wt6mb"]
+gradient = SubResource("Gradient_ekflt")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cb0sg"]
+size = Vector2(64, 64)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_wt6mb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_wt6mb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_cb0sg")
