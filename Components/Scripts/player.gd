@@ -55,12 +55,26 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * 2.0 * delta) # Accelerate
 		# Flip the Spritre
-		if $Sprite2D:
-			$Sprite2D.flip_h = (direction < 0)
+		if $AnimatedSprite2D:
+			$AnimatedSprite2D.flip_h = (direction < 0)
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED * 2.0 * delta) # Decelerate
 		
 		move_and_slide()
 		
 		# Update Animations
-		
+		update_animations()
+
+func update_animations():
+	if not $AnimatedSprite2D: return
+	
+	if not is_on_floor():
+		if velocity.y < 0:
+			$AnimatedSprite2D.play("idle")
+		else:
+			$AnimatedSprite2D.play("idle")
+	else:
+		if abs(velocity.x) > 5:
+			$AnimatedSprite2D.play("run")
+		else:
+			$AnimatedSprite2D.play("idle")
