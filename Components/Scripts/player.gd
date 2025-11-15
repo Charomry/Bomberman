@@ -2,8 +2,8 @@
 extends CharacterBody2D
 
 # Movement
-const SPEED := 300
-const JUMP_VELOCITY = -300
+const SPEED := 50
+const JUMP_VELOCITY = -75
 
 # Gravity
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -13,11 +13,11 @@ var air_jumps = 1
 var current_air_jumps = 0
 
 # Da Juice
-var coyote_timer = 2.0
-const COYOTE_TIME_THRESHOLD = 0.1
+var coyote_timer = 0.0
+const COYOTE_TIME_THRESHOLD = 0.3
 
 var jump_buffer_timer = 0.0
-const JUMP_BUFFER_TIME_THRESHOLD = 0.1
+const JUMP_BUFFER_TIME_THRESHOLD = 0.2
 
 func _physics_process(delta):
 	# Apply gravity

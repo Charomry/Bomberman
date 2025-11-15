@@ -1,27 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctda1gs47ux1r"]
+[gd_scene load_steps=2 format=3 uid="uid://ctda1gs47ux1r"]
 
-[ext_resource type="PackedScene" uid="uid://dmi4vm45yt6q7" path="res://Components/Scene/player.tscn" id="1_5invl"]
-
-[sub_resource type="Gradient" id="Gradient_e745f"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5invl"]
-gradient = SubResource("Gradient_e745f")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jd6ud"]
-size = Vector2(322, 8)
+[ext_resource type="PackedScene" uid="uid://jwhjlijx4n2q" path="res://Components/Scene/level_1.tscn" id="1_5invl"]
 
 [node name="World" type="Node2D"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-scale = Vector2(5, 0.1)
-texture = SubResource("GradientTexture2D_5invl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_jd6ud")
-
-[node name="Player" parent="StaticBody2D" instance=ExtResource("1_5invl")]
-position = Vector2(1, -65)
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="level_1" parent="." instance=ExtResource("1_5invl")]

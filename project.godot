@@ -19,6 +19,13 @@ config/icon="res://Assets/default/icon.svg"
 
 gdscript/warnings/unused_parameter=0
 
+[display]
+
+window/size/viewport_width=160
+window/size/viewport_height=90
+window/size/mode=4
+window/stretch/mode="canvas_items"
+
 [input]
 
 move_left={
@@ -45,3 +52,11 @@ attack={
 [input_devices]
 
 sensors/enable_gravity=true
+
+[physics]
+
+2d/default_gravity=174.80299999999988
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.2, 0.05882353, 0.2, 1)
