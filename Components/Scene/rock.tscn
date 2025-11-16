@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmnh0x30ouxvq"]
+
+[ext_resource type="Script" uid="uid://ddd4mmbww8fj5" path="res://Components/Scripts/rock.gd" id="1_ttvg6"]
+[ext_resource type="AudioStream" uid="uid://b3e182gio1slg" path="res://Assets/audio/metal-clicking-240573.mp3" id="2_ql042"]
+[ext_resource type="Texture2D" uid="uid://d30bnxcnl6c73" path="res://Assets/default/a99ea883-857a-46b7-a826-be554071b816-removebg-preview.png" id="2_vk8es"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ql042"]
+size = Vector2(17, 19)
+
+[node name="rock" type="Area2D"]
+script = ExtResource("1_ttvg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(8.5, -2.4999995)
+scale = Vector2(0.04156479, 0.03114754)
+texture = ExtResource("2_vk8es")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(8.5, -2.4999995)
+shape = SubResource("RectangleShape2D_ql042")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ql042")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

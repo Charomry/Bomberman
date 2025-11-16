@@ -15,9 +15,18 @@ var current_air_jumps = 0
 # Da Juice
 var coyote_timer = 0.0
 const COYOTE_TIME_THRESHOLD = 0.3
-
 var jump_buffer_timer = 0.0
 const JUMP_BUFFER_TIME_THRESHOLD = 0.2
+
+# Attack
+var is_attacking = false
+
+func _ready():
+	$AnimatedSprite2D.animation_finished.connect(_on_animation_finished)
+
+func _on_animation_finished():
+	if is_attacking:
+		is_attacking = false
 
 func _physics_process(delta):
 	# Apply gravity
@@ -37,7 +46,6 @@ func _physics_process(delta):
 	# Handle Jump input (with buffer and coyote time)
 	if Input.is_action_just_pressed("jump"): # "jump" is an action defined in InputMap
 		jump_buffer_timer = JUMP_BUFFER_TIME_THRESHOLD
-
 	if jump_buffer_timer > 0:
 		if is_on_floor() or coyote_timer > 0: # Normal jump or coyote time jump
 			velocity.y = JUMP_VELOCITY
@@ -50,7 +58,6 @@ func _physics_process(delta):
 
 	# Handle Horizontal input
 	var direction = Input.get_axis("move_left", "move_right") # "move_left" & "move_right" from InputMap
-
 	# Movement with simple acceleration/deceleration (you can make this more complex)
 	if direction:
 		# We use move_toward for basic acceleration/deceleration
@@ -61,6 +68,11 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * 2.0 * delta) # Decelerate to a stop
 
+	# Handle attack input
+	if Input.is_action_just_pressed("attack") and not is_attacking:
+		$AnimatedSprite2D.play("attack")
+		is_attacking = true
+
 	move_and_slide()
 
 	# Update animations (simplified)
@@ -68,6 +80,9 @@ func _physics_process(delta):
 
 func update_animations():
 	if not $AnimatedSprite2D: return
+	
+	if is_attacking:
+		return
 	
 	if not is_on_floor():
 		if velocity.y < 0:

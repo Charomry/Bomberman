@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b2ylhdcnkqlwe"]
+
+[ext_resource type="Script" uid="uid://4od7pxqycoep" path="res://Components/Scripts/rock_piece.gd" id="1_kor1n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kor1n"]
+radius = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_4yxh3"]
+radius = 3.048
+height = 5.952
+
+[sub_resource type="Gradient" id="Gradient_kor1n"]
+colors = PackedColorArray(0, 0, 0.29411766, 1, 1, 0.47843137, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4yxh3"]
+gradient = SubResource("Gradient_kor1n")
+
+[node name="RockPiece" type="RigidBody2D"]
+mass = 0.025
+gravity_scale = 0.2
+script = ExtResource("1_kor1n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kor1n")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(9.536743e-07, -9.313226e-10)
+scale = Vector2(0.664228, 0.66801083)
+mesh = SubResource("SphereMesh_4yxh3")
+texture = SubResource("GradientTexture1D_4yxh3")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
