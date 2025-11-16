@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://btfnqms82gmfa"]
+
+[ext_resource type="Texture2D" uid="uid://dwar8tm77u8ee" path="res://Assets/default/pixilart-drawing.png" id="1_agyry"]
+
+[sub_resource type="Gradient" id="Gradient_1p2ei"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gspht"]
+gradient = SubResource("Gradient_1p2ei")
+
+[sub_resource type="Curve" id="Curve_qdvaa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ghupu"]
+curve = SubResource("Curve_qdvaa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2368p"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 25.0
+initial_velocity_max = 75.0
+gravity = Vector3(0, 0, 0)
+damping_min = 28.000002
+damping_max = 28.000002
+scale_curve = SubResource("CurveTexture_ghupu")
+color_ramp = SubResource("GradientTexture1D_gspht")
+turbulence_enabled = true
+
+[node name="smoke" type="GPUParticles2D"]
+modulate = Color(1, 1, 1, 0.023529412)
+texture_filter = 1
+amount = 30
+texture = ExtResource("1_agyry")
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_2368p")
